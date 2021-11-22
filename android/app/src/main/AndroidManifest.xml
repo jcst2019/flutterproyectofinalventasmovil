@@ -1,8 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.maestria.unp.proyectofinalventasmovil">
+    <uses-permission android:name="android.permission.INTERNET"/><!-- JCST Permisos para que la APP use el internet -->
    <application
         android:label="proyectofinalventasmovil"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
+       >
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
