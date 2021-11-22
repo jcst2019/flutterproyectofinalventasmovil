@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:proyectofinalventasmovil/src/register/register_controller.dart';
 import 'package:proyectofinalventasmovil/src/utils/my_colors.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -9,6 +11,16 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  RegisterController _controllerRegister = new RegisterController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      _controllerRegister.init(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +35,15 @@ class _RegisterPageState extends State<RegisterPage> {
             left: 100,
           ),
           Container(
-            width: double.maxFinite,//Centrado
+            width: double.maxFinite, //Centrado
             margin: EdgeInsets.only(top: 80),
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   _imageUser(),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   //_imageBanner(),
                   //_lottieAnimation(),
                   _textFieldEmail(),
@@ -64,6 +78,8 @@ class _RegisterPageState extends State<RegisterPage> {
           color: MyColors.primaryOpacityColor,
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
+        controller: _controllerRegister.emailController,
+        keyboardType: TextInputType.emailAddress, //Para que se muestre el teclado donde se muestre el arroba @
         decoration: InputDecoration(
             hintText: 'Correo Electrónico',
             border: InputBorder.none,
@@ -73,6 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
   Widget _textFieldName() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -80,6 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
           color: MyColors.primaryOpacityColor,
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
+        controller: _controllerRegister.nameController,
         decoration: InputDecoration(
             hintText: 'Nombre(s)',
             border: InputBorder.none,
@@ -89,6 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
   Widget _textFieldLastName() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -96,15 +115,18 @@ class _RegisterPageState extends State<RegisterPage> {
           color: MyColors.primaryOpacityColor,
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
+        controller: _controllerRegister.lastNameController,
         decoration: InputDecoration(
             hintText: 'Apellido(s)',
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15),
             hintStyle: TextStyle(color: MyColors.primaryColorDark),
-            prefixIcon: Icon(Icons.person_outline, color: MyColors.primaryColor)),
+            prefixIcon:
+                Icon(Icons.person_outline, color: MyColors.primaryColor)),
       ),
     );
   }
+
   Widget _textFieldPhone() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -112,6 +134,8 @@ class _RegisterPageState extends State<RegisterPage> {
           color: MyColors.primaryOpacityColor,
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
+        controller: _controllerRegister.phoneController,
+        keyboardType: TextInputType.phone,
         decoration: InputDecoration(
             hintText: 'Teléfono',
             border: InputBorder.none,
@@ -121,6 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
   Widget _textFielPassword() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -128,6 +153,8 @@ class _RegisterPageState extends State<RegisterPage> {
           color: MyColors.primaryOpacityColor,
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
+        controller: _controllerRegister.passwordController,
+        obscureText: true,
         decoration: InputDecoration(
             hintText: 'Contraseña',
             border: InputBorder.none,
@@ -137,6 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
   Widget _textFielConfirmPassword() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -144,6 +172,8 @@ class _RegisterPageState extends State<RegisterPage> {
           color: MyColors.primaryOpacityColor,
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
+        controller: _controllerRegister.confirmPasswordController,
+        obscureText: true,
         decoration: InputDecoration(
             hintText: 'Confimar Contraseña',
             border: InputBorder.none,
@@ -154,13 +184,12 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-
   Widget _buttonRegister() {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: _controllerRegister.register,
         child: Text('Registrarse'),
         style: ElevatedButton.styleFrom(
             primary: MyColors.primaryColor,
@@ -186,10 +215,11 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _imageUser(){
+  Widget _imageUser() {
     return CircleAvatar(
       backgroundImage: AssetImage('assets/img/user_profile_2.png'),
-      radius: 60,backgroundColor: Colors.white,
+      radius: 60,
+      backgroundColor: Colors.white,
     );
   }
 }
