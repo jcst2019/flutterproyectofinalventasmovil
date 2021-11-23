@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:proyectofinalventasmovil/src/models/response_api.dart';
 import 'package:proyectofinalventasmovil/src/models/user.dart';
 import 'package:proyectofinalventasmovil/src/provider/users_prrovider.dart';
+import 'package:proyectofinalventasmovil/src/utils/my_snackbar.dart';
 
 class RegisterController {
   BuildContext context;
@@ -29,6 +30,23 @@ class RegisterController {
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
 
+    if (email.isEmpty ||
+        name.isEmpty ||
+        lastName.isEmpty ||
+        phone.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
+      MySnackbar.show(context, 'Debes ingresar todos los campos...');
+      return;
+    }
+    if (confirmPassword != password) {
+      MySnackbar.show(context, 'Las contraseñas no coinciden...');
+      return;
+    }
+    if (password.length < 6) {
+      MySnackbar.show(context, 'La contraseña debe de tener 6 caracteres...');
+      return;
+    }
 
     User user = new User(
         email: email,
@@ -37,8 +55,9 @@ class RegisterController {
         phone: phone,
         password: password);
 
-
     ResponseApi responseApi = await usersProvider.create(user);
+
+    MySnackbar.show(context, responseApi.message);
 
     print('Respuesta: ${responseApi.toJson()}');
     print('Email: $email');
