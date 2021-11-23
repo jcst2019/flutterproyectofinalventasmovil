@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyectofinalventasmovil/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/login/login_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/register/register_page.dart';
 import 'package:proyectofinalventasmovil/src/utils/my_colors.dart';
@@ -23,7 +24,8 @@ class _MyAppState extends State<MyApp> {
       false, //Quitar la etiqueta de Debug en el Emulador
       initialRoute: 'login',
       routes: {'login': (BuildContext context) => loginPage(),
-               'register': (BuildContext context) => RegisterPage()
+               'register': (BuildContext context) => RegisterPage(),
+               'client/products/list': (BuildContext context) => ClientsProductsListPage()
       },
       theme: ThemeData(
           primaryColor: MyColors.primaryColor

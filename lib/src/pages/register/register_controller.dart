@@ -67,4 +67,8 @@ class RegisterController {
     print('Contraseña : $password');
     print('Confirmar Contraseña : $name');
   }
+
+  void back(){
+    Navigator.pop(context);
+  }
 }

@@ -80,5 +80,6 @@ class ResponseApi {
         "message": message,
         "error": error,
         "success": success,
+        "data": data
       };
 }

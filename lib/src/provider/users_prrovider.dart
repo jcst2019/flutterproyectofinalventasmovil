@@ -31,4 +31,23 @@ class UsersProvider {
       return null;
     }
   }
+
+  Future <ResponseApi> login(String email, String password) async{
+    try {
+      Uri url = Uri.http(_url, '$_api/login');
+      String bodyParams = json.encode({
+        'email': email,
+        'password':password
+      });
+      Map<String, String> headers = {'Content-type': 'application/json'};
+      final response = await http.post(url, headers: headers, body: bodyParams);
+      final data = json.decode(response.body);
+      ResponseApi responseApi = ResponseApi.fromJson(data);
+      return responseApi;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+
+  }
 }

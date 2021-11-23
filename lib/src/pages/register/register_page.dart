@@ -204,7 +204,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Row(
       children: [
         IconButton(
-            onPressed: () {},
+            onPressed: _controllerRegister.back,
             icon: Icon(Icons.arrow_back_ios, color: Colors.white)),
         Text(
           'Nuevo Usuario',
