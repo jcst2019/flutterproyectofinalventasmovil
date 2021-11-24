@@ -44,12 +44,20 @@ class LoginController {
     if (responseApi.success) {
       User user = User.fromJson(responseApi.data);
       _sharedPref.save('user', user.toJson());
-      Navigator.pushNamedAndRemoveUntil(
-          context,
-          'client/products/list',
-          (route) =>
-              false); //Nos lleva  al pantalla pero destruye todas las anteriores impidiendo que regresemos a la anterior
 
+      print('Usuario Logueado: ${user.toJson()}');
+
+      if (user.roles.length > 1) {
+        //Si tiene mas de 1 rol
+        Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            //'client/products/list',
+            user.roles[0].route,
+            (route) =>
+                false); //Nos lleva  al pantalla pero destruye todas las anteriores impidiendo que regresemos a la anterior
+      }
     } else {
       MySnackbar.show(context, responseApi.message);
     }
