@@ -9,6 +9,7 @@ import 'package:proyectofinalventasmovil/src/models/response_api.dart';
 import 'package:proyectofinalventasmovil/src/models/user.dart';
 import 'package:proyectofinalventasmovil/src/provider/users_prrovider.dart';
 import 'package:proyectofinalventasmovil/src/utils/my_snackbar.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class RegisterController {
   BuildContext context;
@@ -24,11 +25,14 @@ class RegisterController {
   PickedFile pickedFile;
   File imageFile;
   Function refresh;
+  ProgressDialog _progressDialog;
+  bool isEnable = true;
 
   Future init(BuildContext context, Function refresh) {
     this.context = context;
     this.refresh = refresh;
     usersProvider.init(context);
+    _progressDialog = ProgressDialog(context: context);
   }
 
   Future<void> register() async {
@@ -61,6 +65,8 @@ class RegisterController {
       MySnackbar.show(context, 'Por favor seleccione una imagen...');
       return;
     }
+    isEnable = false;
+    _progressDialog.show(max: 100, msg: 'Espere un momento');
 
     User user = new User(
         email: email,
@@ -71,6 +77,8 @@ class RegisterController {
 
     Stream stream = await usersProvider.createWithImage(user, imageFile);
     stream.listen((res) {
+      _progressDialog.close();
+
       //ResponseApi responseApi = await usersProvider.create(user);
       ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
       print('Respuesta: ${responseApi.toJson()}');
@@ -86,6 +94,8 @@ class RegisterController {
         Future.delayed(Duration(seconds: 3), () {
           Navigator.pushReplacementNamed(context, 'login');
         });
+      }else{
+        isEnable = true;
       }
     });
   }

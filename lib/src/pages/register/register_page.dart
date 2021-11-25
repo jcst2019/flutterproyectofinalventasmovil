@@ -190,7 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: ElevatedButton(
-        onPressed: _controllerRegister.register,
+        onPressed: _controllerRegister.isEnable ? _controllerRegister.register : null, //Con la variable controllerRegister.isEnable determinado si se habilita el boton
         child: Text('Registrarse'),
         style: ElevatedButton.styleFrom(
             primary: MyColors.primaryColor,
