@@ -17,7 +17,7 @@ class _RegisterPageState extends State<RegisterPage> {
     // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _controllerRegister.init(context);
+      _controllerRegister.init(context, refresh);
     });
   }
 
@@ -79,7 +79,8 @@ class _RegisterPageState extends State<RegisterPage> {
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
         controller: _controllerRegister.emailController,
-        keyboardType: TextInputType.emailAddress, //Para que se muestre el teclado donde se muestre el arroba @
+        keyboardType: TextInputType
+            .emailAddress, //Para que se muestre el teclado donde se muestre el arroba @
         decoration: InputDecoration(
             hintText: 'Correo Electrónico',
             border: InputBorder.none,
@@ -216,10 +217,20 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _imageUser() {
-    return CircleAvatar(
-      backgroundImage: AssetImage('assets/img/user_profile_2.png'),
-      radius: 60,
-      backgroundColor: Colors.white,
+    return GestureDetector(
+      onTap: _controllerRegister.ShowAlertDialog,
+      child: CircleAvatar(
+        backgroundImage: _controllerRegister.imageFile != null
+            ? FileImage(_controllerRegister.imageFile)
+            : AssetImage('assets/img/user_profile_2.png'),
+        radius: 60,
+        backgroundColor: Colors.white,
+      ),
     );
+  }
+
+  void refresh() {
+    setState(
+        () {}); //"Es como si icieramos Ctrl +'S', que sirve para refrescar la página"
   }
 }
