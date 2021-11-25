@@ -50,7 +50,7 @@ class _RolesPageState extends State<RolesPage> {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.14),
+            margin: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.05),
             height: 100,
             child: FadeInImage(
               image: rol.image != null

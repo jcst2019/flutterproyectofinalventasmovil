@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:proyectofinalventasmovil/src/models/user.dart';
 import 'package:proyectofinalventasmovil/src/utils/shared_pref.dart';
 
-class ClientProductsListController {
+class VendedorOrdenListController {
   BuildContext context;
   SharedPref _sharedPref = new SharedPref();
   GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
@@ -24,7 +24,6 @@ class ClientProductsListController {
   void openDrawer() {
     key.currentState.openDrawer();
   }
-
   void goToRoles(){
     Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
   }
