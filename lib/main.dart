@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyectofinalventasmovil/src/pages/almacenero/orden/list/almacenero_orden_list_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/client/products/list/client_products_list_page.dart';
+import 'package:proyectofinalventasmovil/src/pages/client/update/client_update_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/login/login_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/register/register_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/roles/roles_page.dart';
@@ -30,6 +31,7 @@ class _MyAppState extends State<MyApp> {
                'register': (BuildContext context) => RegisterPage(),
                'roles': (BuildContext context) => RolesPage(),
                'client/products/list': (BuildContext context) => ClientsProductsListPage(),
+               'client/update/': (BuildContext context) => ClientUpdatePage(),
                'almacenero/orden/list': (BuildContext context) => AlmaceneroOrdenListPage(),
                'vendedor/orden/list': (BuildContext context) => VendedorOrdenListPage()
       },

@@ -10,7 +10,7 @@ class ClientProductsListController {
   Function refresh;
   User user;
 
-  Future init(BuildContext context, Function refresh) async{
+  Future init(BuildContext context, Function refresh) async {
     this.context = context;
     user = User.fromJson(await _sharedPref.read('user'));
     this.refresh = refresh;
@@ -25,7 +25,12 @@ class ClientProductsListController {
     key.currentState.openDrawer();
   }
 
-  void goToRoles(){
+  void goToRoles() {
     Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
+  }
+
+  void gotoUpdatePage() {
+    Navigator.pushNamed(
+        context, 'client/update/');
   }
 }
