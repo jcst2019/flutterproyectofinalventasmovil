@@ -32,9 +32,9 @@ class ClientUpdateController {
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
-    usersProvider.init(context);
     _progressDialog = ProgressDialog(context: context);
     user = User.fromJson(await _sharedPref.read('user'));
+    usersProvider.init(context, sessionUser: user);
     nameController.text = user.name;
     lastNameController.text = user.lastname;
     phoneController.text = user.phone;
@@ -57,11 +57,15 @@ class ClientUpdateController {
     isEnable = false;
     _progressDialog.show(max: 100, msg: 'Espere un momento');
 
-    User myuser =
-        new User(id: user.id, name: name, lastname: lastName, phone: phone);
+    User myuser = new User(
+        id: user.id,
+        name: name,
+        lastname: lastName,
+        phone: phone,
+        image: user.image);
 
     Stream stream = await usersProvider.update(myuser, imageFile);
-    stream.listen((res) async{
+    stream.listen((res) async {
       _progressDialog.close();
 
       //ResponseApi responseApi = await usersProvider.create(user);
@@ -74,7 +78,9 @@ class ClientUpdateController {
       //MySnackbar.show(context, responseApi.message);
       Fluttertoast.showToast(msg: responseApi.message);
       if (responseApi.success) {
-        user = await usersProvider.getById(myuser.id); //Obteniendo el usuario de la BD
+        user = await usersProvider
+            .getById(myuser.id); //Obteniendo el usuario de la BD
+        print('Usuario obtenido: ${user.toJson()}');
         _sharedPref.save('user', user.toJson());
         Future.delayed(Duration(seconds: 3), () {
           Navigator.pushNamedAndRemoveUntil(
