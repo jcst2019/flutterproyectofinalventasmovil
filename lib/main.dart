@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyectofinalventasmovil/src/pages/almacenero/categories/create/almacenero_categories_create_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/almacenero/orden/list/almacenero_orden_list_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/client/update/client_update_page.dart';
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
                'client/products/list': (BuildContext context) => ClientsProductsListPage(),
                'client/update/': (BuildContext context) => ClientUpdatePage(),
                'almacenero/orden/list': (BuildContext context) => AlmaceneroOrdenListPage(),
+               'almacenero/categories/create': (BuildContext context) => AlmaceneroCategoriesCreatePage(),
                'vendedor/orden/list': (BuildContext context) => VendedorOrdenListPage()
       },
       theme: ThemeData(

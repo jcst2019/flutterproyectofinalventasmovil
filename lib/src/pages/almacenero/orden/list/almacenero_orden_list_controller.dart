@@ -28,4 +28,8 @@ class AlmaceneroOrdenListController {
   void goToRoles() {
     Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
   }
+
+  void goToCategoriesCreate() {
+    Navigator.pushNamed(context, 'almacenero/categories/create');
+  }
 }

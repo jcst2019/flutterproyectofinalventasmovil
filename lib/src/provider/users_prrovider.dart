@@ -48,7 +48,7 @@ class UsersProvider {
   Future<Stream> createWithImage(User user, File image) async {
     try {
       //Uri url = Uri.http(_url, '$_api/create');
-      Uri url = Uri.http(_url, '$_api/createfull');
+      Uri url = Uri.https(_url, '$_api/createfull');
       final request = http.MultipartRequest('POST', url);
       if (image != null) {
         request.files.add(http.MultipartFile('image',

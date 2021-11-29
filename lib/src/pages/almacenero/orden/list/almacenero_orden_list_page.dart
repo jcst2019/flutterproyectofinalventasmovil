@@ -107,9 +107,9 @@ class _AlmaceneroOrdenListPageState extends State<AlmaceneroOrdenListPage> {
                 ],
               )),
           ListTile(
-            title: Text('Editar Perfil'),
-            trailing: Icon(Icons.edit_outlined),
-            //leading:Icon(Icons.cancel) , //Parte Isquierda
+            onTap: _almaceneroOrdenListController.goToCategoriesCreate,
+            title: Text('Crear Categoría'),
+            trailing: Icon(Icons.list_alt),
           ),
           ListTile(
             title: Text('Mis Pedidos'),
