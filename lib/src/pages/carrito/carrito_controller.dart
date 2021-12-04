@@ -1,9 +1,17 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/foundation.dart';
 
 class CarritoController with ChangeNotifier {
   List<Map> detalle = [];
   var orden = null;
+  String _cardNumber = '';
+  String _expiredDate = '';
+  String _cardHolderName = '';
+  String _cvvCode = '';
+  bool _isCvvFocused = false;
+  GlobalKey <FormState> _keyform = new GlobalKey();
 
   CartController() {
     init();
@@ -40,7 +48,7 @@ class CarritoController with ChangeNotifier {
               .contains(product.id_producto)) {
             if (stock >= quantity) {
               detalle.removeWhere(
-                  (item) => item["id_producto"] == product.id_producto);
+                      (item) => item["id_producto"] == product.id_producto);
               Map map = {
                 "id_producto": product.id_producto,
                 "cantidad": quantity.toString(),
@@ -100,7 +108,7 @@ class CarritoController with ChangeNotifier {
 
   delete(data) {
     detalle.removeWhere(
-        (element) => data["id_producto"] == element["id_producto"]);
+            (element) => data["id_producto"] == element["id_producto"]);
     notifyListeners();
   }
 
@@ -223,6 +231,7 @@ class CarritoController with ChangeNotifier {
   }
 
   String nroOrden = "";
+
   setNroOrden(nro) {
     nroOrden = nro;
     notifyListeners();
@@ -233,6 +242,7 @@ class CarritoController with ChangeNotifier {
   }
 
   Null pedidos = null;
+
   setPedidos(res) {
     pedidos = res;
     //pedidos.add(res);
@@ -241,5 +251,49 @@ class CarritoController with ChangeNotifier {
 
   getPedidos() {
     return pedidos;
+  }
+
+  bool get isCvvFocused => _isCvvFocused;
+
+  set isCvvFocused(bool value) {
+    _isCvvFocused = value;
+  }
+
+  String get cvvCode => _cvvCode;
+
+  set cvvCode(String value) {
+    _cvvCode = value;
+  }
+
+  String get cardHolderName => _cardHolderName;
+
+  set cardHolderName(String value) {
+    _cardHolderName = value;
+  }
+
+  String get expiredDate => _expiredDate;
+
+  set expiredDate(String value) {
+    _expiredDate = value;
+  }
+
+  String get cardNumber => _cardNumber;
+
+  set cardNumber(String value) {
+    _cardNumber = value;
+  }
+
+  GlobalKey<FormState> get keyform => _keyform;
+
+  set keyform(GlobalKey<FormState> value) {
+    _keyform = value;
+  }
+
+  onCreditCardModelChange(CreditCardModel creditCardModel) {
+    _cardNumber = creditCardModel.cardNumber;
+    _expiredDate = creditCardModel.expiryDate;
+    _cardHolderName = creditCardModel.cardHolderName;
+    _cvvCode = creditCardModel.cvvCode;
+    _isCvvFocused = creditCardModel.isCvvFocused;
   }
 }

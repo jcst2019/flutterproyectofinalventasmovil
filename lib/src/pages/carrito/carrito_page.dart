@@ -1,9 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:proyectofinalventasmovil/src/config/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:proyectofinalventasmovil/src/utils/my_colors.dart';
+import 'package:flutter_credit_card/credit_card_form.dart';
+import 'package:flutter_credit_card/credit_card_widget.dart';
 
 import 'carrito_controller.dart';
 
@@ -45,19 +48,35 @@ class _CarritoPage extends State<CarritoPage> {
               Expanded(
                 child: Stepper(
                   controlsBuilder: (BuildContext context,
-                  {onStepContinue, onStepCancel}) {
+                      {onStepContinue, onStepCancel}) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        cart.getNumber()>0?TextButton(
-                          onPressed: onStepContinue,
-                          child: const Text('Continuar',style: TextStyle(color: Colors.orange,fontSize: 20,fontWeight: FontWeight.bold),),
-                        ):Text(""),
-                        _currentStep==0?Text(""):TextButton(
-                          //onPressed: onStepCancel,
-                          onPressed: onStepCancel,
-                          child: const Text('Cancelar',style: TextStyle(color: Colors.grey,fontSize: 20,fontWeight: FontWeight.bold),),
-                        ),
+                        cart.getNumber() > 0
+                            ? TextButton(
+                                onPressed: onStepContinue,
+                                child: const Text(
+                                  'Continuar',
+                                  style: TextStyle(
+                                      color: Colors.orange,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            : Text(""),
+                        _currentStep == 0
+                            ? Text("")
+                            : TextButton(
+                                //onPressed: onStepCancel,
+                                onPressed: onStepCancel,
+                                child: const Text(
+                                  'Cancelar',
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                       ],
                     );
                   },
@@ -83,11 +102,11 @@ class _CarritoPage extends State<CarritoPage> {
                       content: Column(
                         children: <Widget>[
                           TextFormField(
-                            decoration:
-                                InputDecoration(labelText: 'Dirección'),
+                            decoration: InputDecoration(labelText: 'Dirección'),
                           ),
                           TextFormField(
-                            decoration: InputDecoration(labelText: 'Referencia'),
+                            decoration:
+                                InputDecoration(labelText: 'Referencia'),
                           ),
                         ],
                       ),
@@ -99,10 +118,50 @@ class _CarritoPage extends State<CarritoPage> {
                     Step(
                       title: new Text('Método de pago'),
                       content: Column(
-                        children: <Widget>[
+                        /*children: <Widget>[
                           TextFormField(
                             decoration:
-                                InputDecoration(labelText: ''),
+                                InputDecoration(labelText: 'Método de pago'),
+                          ),
+                        ],*/
+                        children: [
+                          CreditCardWidget(
+                            cardNumber: cart.cardHolderName,
+                            expiryDate: cart.expiredDate,
+                            cardHolderName: cart.cardHolderName,
+                            cvvCode: cart.cvvCode,
+                            showBackView: cart
+                                .isCvvFocused, //true when you want to show cvv(back) view
+                            cardBgColor: MyColors.primaryColor,
+                            animationDuration: Duration(milliseconds: 1000),
+                            labelCardHolder: 'Nombre y Apellido',
+                          ),
+                          CreditCardForm(
+                            formKey: cart.keyform, // Required
+                            onCreditCardModelChange:
+                                (cart.onCreditCardModelChange), // Required
+                            themeColor: Colors.red,
+                            obscureCvv: true,
+                            obscureNumber: true,
+                            cardNumberDecoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Número de la Tarjeta',
+                              hintText: 'XXXX XXXX XXXX XXXX',
+                            ),
+                            expiryDateDecoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Fecha de Expiración',
+                              hintText: 'XX/XX',
+                            ),
+                            cvvCodeDecoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'CVV',
+                              hintText: 'XXX',
+                            ),
+                            cardHolderDecoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Nombre del Titular',
+                            ),
                           ),
                         ],
                       ),
