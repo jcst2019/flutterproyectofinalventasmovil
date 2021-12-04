@@ -1,5 +1,10 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
+import 'package:proyectofinalventasmovil/src/config/constants.dart';
+import 'package:proyectofinalventasmovil/src/pages/carrito/carrito_controller.dart';
+import 'package:proyectofinalventasmovil/src/pages/catalogo/catalogo_page.dart';
 import 'package:proyectofinalventasmovil/src/pages/client/products/list/client_products_list_controller.dart';
 import 'package:proyectofinalventasmovil/src/utils/my_colors.dart';
 
@@ -30,14 +35,53 @@ class _ClientsProductsListPageState extends State<ClientsProductsListPage> {
           //title: _menuDrawer() ,
           leading: _menuDrawer(),
           backgroundColor: MyColors.primaryColor,
+          title: Text(Constants.appName,
+              style: const TextStyle(fontFamily: "Pacifico", fontSize: 30.00,)),
+          actions: <Widget>[
+            Consumer<CarritoController>(
+              builder: (context, carrito, child) => Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    children: <Widget>[
+                      IconButton(
+                        icon: Badge(
+                          badgeColor: Colors.black87,
+                          toAnimate: true,
+                          badgeContent: Text(
+                            '${carrito.getNumber()}',
+                            style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          child: const Icon(
+                            Icons.shopping_cart,
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            'carrito'
+                          );
+                        },
+                      ),
+                    ],
+                  )),
+            )
+          ],
+          centerTitle: true,
         ),
         drawer: _drawer(),
-        body: Center(
+        body: CatalogoPage()
+    );
+        /*Center(
           child: ElevatedButton(
             onLongPress: _controller.logout,
             child: Text('Cerrar sesión'),
           ),
         ));
+         */
   }
 
   Widget _menuDrawer() {

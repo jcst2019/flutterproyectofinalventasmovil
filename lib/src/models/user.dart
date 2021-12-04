@@ -58,4 +58,8 @@ class User {
     "image": image,
     "roles": roles,
   };
+
+  static isNull() {
+    return null;
+  }
 }

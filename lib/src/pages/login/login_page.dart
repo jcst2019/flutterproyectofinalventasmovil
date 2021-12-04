@@ -6,7 +6,6 @@ import 'package:proyectofinalventasmovil/src/utils/my_colors.dart';
 import 'package:lottie/lottie.dart';
 
 class loginPage extends StatefulWidget {
-  const loginPage({Key key}) : super(key: key);
 
   @override
   _loginPageState createState() => _loginPageState();
