@@ -96,8 +96,7 @@ class _DetalleProductoPageState extends State<DetalleProductoPage> {
       child: InkWell(
           // child: image_text(data),
           child: FadeInImage(
-            image: NetworkImage(
-                'https://static.photocdn.pt/images/articles/2017_1/iStock-545347988.jpg'),
+            image: NetworkImage(this.product.imagenes_producto[0]["ruta"]),
             placeholder: AssetImage('assets/img/jar-loading.gif'),
             fadeInDuration: Duration(milliseconds: 200),
             height: 500.0,

@@ -141,13 +141,13 @@ class _CatalogoPageState extends State<CatalogoPage> {
   }
 
   Widget imagenProducto(Producto product) {
+    print("product.imagenes_producto --> ${product.imagenes_producto}");
     return Container(
       height: 220,
       child: InkWell(
           // child: image_text(data),
           child: FadeInImage(
-            image: NetworkImage(
-                'https://static.photocdn.pt/images/articles/2017_1/iStock-545347988.jpg'),
+            image: NetworkImage(product.imagenes_producto[0]["ruta"]),
             placeholder: AssetImage('assets/img/jar-loading.gif'),
             fadeInDuration: Duration(milliseconds: 200),
             height: 160.0,
